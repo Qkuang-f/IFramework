@@ -3,6 +3,8 @@
 [Oo]bj/
 [Bb]uild/
 [Bb]uilds/
+[Aa]ssets/UnGit/
+[Aa]ssets/UnGit.meta
 Assets/AssetStoreTools*
 
 # Visual Studio cache directory
