@@ -7,7 +7,9 @@
  *History:        2018.11--
 *********************************************************************************/
 using IFramework;
-using IFramework.NodeAction;
+using IFramework.Moudles;
+using IFramework.Moudles.Coroutine;
+using IFramework.Moudles.NodeAction;
 using System;
 
 namespace IFramework_Demo
@@ -17,7 +19,9 @@ namespace IFramework_Demo
 	{
         private void Start()
         {
-            Framework.CoroutineMoudle.BindFramework();
+            Framework.Init();
+            Framework.moudles.Coroutine = FrameworkMoudle.CreatInstance<CoroutineMoudle>();
+
            this.Sequence()
                 .Repeat((r) => {
                     r.Sequence((s) =>
@@ -31,7 +35,7 @@ namespace IFramework_Demo
                 .TimeSpan(new TimeSpan(0, 0, 5),false)
                 .OnCompelete((ss) => { /*ss.Reset();*/ })
                 .OnDispose((ss) => { Log.L("dispose"); })
-                .Run(Framework.CoroutineMoudle);
+                .Run(Framework.moudles.Coroutine as CoroutineMoudle);
         }
         private void Update()
         {
