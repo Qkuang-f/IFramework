@@ -6,7 +6,7 @@
  *Description:    IFramework
  *History:        2018.11--
 *********************************************************************************/
-using IFramework.Moudles;
+using IFramework.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ using UnityEngine;
 
 namespace IFramework
 {
-    public class LanguageMoudle : FrameworkMoudle
+    public class LanguageModule : FrameworkModule
     {
         public class LanObserver : IDisposable
         {
@@ -24,8 +24,8 @@ namespace IFramework
             public SystemLanguage CurLan { get { return moudle.lan; } }
             public SystemLanguage Fallback { get; private set; }
             private List<LanPair> Pairs { get { return moudle.keyDic[Key]; } }
-            private LanguageMoudle moudle;
-            internal LanObserver(LanguageMoudle moudle, string key, SystemLanguage fallback, bool autoStart)
+            private LanguageModule moudle;
+            internal LanObserver(LanguageModule moudle, string key, SystemLanguage fallback, bool autoStart)
             {
                 this.moudle = moudle;
                 moudle.lanObservers.Add(this);
@@ -80,7 +80,9 @@ namespace IFramework
         private List<Func<List<LanPair>>> lanPairLoaders;
         private List<LanObserver> lanObservers;
         private event Action ObserveEvent;
+
         private SystemLanguage lan = SystemLanguage.Unknown;
+
         public SystemLanguage Lan
         {
             get { return lan; }
@@ -92,6 +94,9 @@ namespace IFramework
                     ObserveEvent();
             }
         }
+
+        protected override bool needUpdate { get { return false; } }
+
         public void AddLoader(Func<List<LanPair>> loader)
         {
             lanPairLoaders.Add(loader);
